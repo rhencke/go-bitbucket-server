@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:application
+        xmlns:ns2="http://research.sun.com/wadl/2006/10"><ns2:doc
+        jersey:generatedBy="Jersey: 1.8-atlassian-16 03/23/2015 10:20 PM"
+        xmlns:jersey="http://jersey.java.net/"/><ns2:doc
+        title="REST Resources Provided By: Bitbucket Server - Audit"
+            xml:lang="en"><![CDATA[
+        Provides auditing features
+    ]]></ns2:doc><ns2:grammars><ns2:include
+        href="schema.xsd"/></ns2:grammars><ns2:resources
+            base="http://example.com/rest/"><ns2:resource
+                path="audit/1.0/projects/{projectKey}"><ns2:resource
+                    path="events"><ns2:method id="findByProject"
+                            name="GET"><ns2:doc><![CDATA[Retrieve the audit events for this project. The list of events will match those shown in the UI, for
+ a complete list of events please check the audit log file.
+ <p>
+ The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
+ resource.]]></ns2:doc><ns2:response><ns2:representation
+                            element="page" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":1,"limit":25,"isLastPage":true,"values":[{"action":"RepositoryPush","timestamp":1459818761977,"details":"Details","user":{"name":"jcitizen","emailAddress":"jane@example.com","id":101,"displayName":"Jane Citizen","active":true,"slug":"jcitizen","type":"NORMAL"}}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The audit events for this project]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to administer the
+                                  project.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified project does not exist.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="repos/{repositorySlug}/events"><ns2:method
+                    id="findByRepository"
+                            name="GET"><ns2:doc><![CDATA[Retrieve the subset of audit events stored for this repository. The list of events will match those shown in the UI, for
+ a complete list of events please check the audit log file.
+ <p>
+ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the specified repository to call this
+ resource.]]></ns2:doc><ns2:response><ns2:representation
+                            element="page" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":1,"limit":25,"isLastPage":true,"values":[{"action":"RepositoryPush","timestamp":1459818761977,"details":"Details","user":{"name":"jcitizen","emailAddress":"jane@example.com","id":101,"displayName":"Jane Citizen","active":true,"slug":"jcitizen","type":"NORMAL"}}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The audit events for this repository]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to administer the
+                                  repository.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository does not exist.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource></ns2:resources></ns2:application>

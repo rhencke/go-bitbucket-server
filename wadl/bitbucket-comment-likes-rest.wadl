@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:application
+        xmlns:ns2="http://research.sun.com/wadl/2006/10"><ns2:doc
+        jersey:generatedBy="Jersey: 1.8-atlassian-16 03/23/2015 10:20 PM"
+        xmlns:jersey="http://jersey.java.net/"/><ns2:doc
+        title="REST Resources Provided By: Bitbucket Server - Comment Likes"
+            xml:lang="en"><![CDATA[
+        Provides support for liking comments
+    ]]></ns2:doc><ns2:grammars><ns2:include
+        href="schema.xsd"/></ns2:grammars><ns2:resources
+            base="http://example.com/rest/"><ns2:resource
+                path="comment-likes/1.0/projects/{projectKey}/repos/{repositorySlug}/commits/{commitId}/comments/{commentId}/likes"><ns2:param
+                name="commentId" style="template" type="xs:long"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"/><ns2:param
+                name="commitId" style="template" type="xs:string"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"/><ns2:method
+                id="unlike"
+                        name="DELETE"><ns2:doc><![CDATA[Unlike a commit comment in the specified repository, identified by <code>commitId</code> and
+ <code>commentId</code>.
+ <p>
+ The authenticated user must have the <strong>REPO_READ</strong> (or higher) permission for the specified
+ repository to access this resource.]]></ns2:doc><ns2:response><ns2:representation
+                        element="errors" status="400"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user is the comment author]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user does not have sufficient permission
+ (<code>REPO_READ</code>)]]></ns2:doc></ns2:representation><ns2:representation
+                        status="204"><ns2:doc><![CDATA[No content response indicating that the request succeeded]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="404"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository, commit or comment does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                id="getLikers"
+                        name="GET"><ns2:doc><![CDATA[Get a page of users who liked a commit comment in the specified repository, identified by <code>commitId</code>
+ and <code>commentId</code>.
+ <p>
+ The authenticated user must have the <strong>REPO_READ</strong> (or higher) permission for the specified
+ repository to access this resource.]]></ns2:doc><ns2:response><ns2:representation
+                        status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":1,"limit":25,"isLastPage":true,"values":[{"name":"jcitizen","emailAddress":"jane@example.com","id":101,"displayName":"Jane Citizen","active":true,"slug":"jcitizen","type":"NORMAL"}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[Page of users who liked the specified comment]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user does not have sufficient permission
+ (<code>REPO_READ</code>) to query the comment likes]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="404"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository, commit or comment does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                id="like"
+                        name="POST"><ns2:doc><![CDATA[Like a commit comment in the specified repository, identified by <code>commitId</code> and
+ <code>commentId</code>.
+ <p>
+ The authenticated user must have the <strong>REPO_READ</strong> (or higher) permission for the specified
+ repository to access this resource.]]></ns2:doc><ns2:response><ns2:representation
+                        element="errors" status="400"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user is the comment author]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user does not have sufficient permission
+ (<code>REPO_READ</code>).]]></ns2:doc></ns2:representation><ns2:representation
+                        status="204"><ns2:doc><![CDATA[No content response indicating that the request succeeded]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="404"
+                                mediaType="application/json"><ns2:doc><ns3:p
+            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository, commit or comment does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                path="comment-likes/1.0/projects/{projectKey}/repos/{repositorySlug}/pull-requests/{pullRequestId}/comments/{commentId}/likes"><ns2:param
+                name="commentId" style="template" type="xs:long"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"/><ns2:param
+                name="pullRequestId" style="template" type="xs:long"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"/><ns2:method
+                id="unlike"
+                        name="DELETE"><ns2:doc><![CDATA[Unlike a pull request comment in the specified repository, identified by <code>pullRequestId</code> and
+ <code>commentId</code>.
+ <p>
+ The authenticated user must have the <strong>REPO_READ</strong> (or higher) permission for the specified
+ repository to access this resource.]]></ns2:doc><ns2:response><ns2:representation
+                        element="errors" status="400"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user is the comment author]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user does not have sufficient permission
+ (<code>REPO_READ</code>)]]></ns2:doc></ns2:representation><ns2:representation
+                        status="204"><ns2:doc><![CDATA[No content response indicating that the request succeeded]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="404"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository, pull request or comment does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                id="getLikers"
+                        name="GET"><ns2:doc><![CDATA[Get a page of users who liked a pull request comment in the specified repository, identified by
+ <code>pullRequestId</code> and <code>commentId</code>.
+ <p>
+ The authenticated user must have the <strong>REPO_READ</strong> (or higher) permission for the specified
+ repository to access this resource.]]></ns2:doc><ns2:response><ns2:representation
+                        status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":1,"limit":25,"isLastPage":true,"values":[{"name":"jcitizen","emailAddress":"jane@example.com","id":101,"displayName":"Jane Citizen","active":true,"slug":"jcitizen","type":"NORMAL"}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[Page of users who liked the specified comment]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user does not have sufficient permission
+ (<code>REPO_READ</code>) to query the comment likes]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="404"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository, pull request or comment does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                id="like"
+                        name="POST"><ns2:doc><![CDATA[Like a pull request comment in the specified repository, identified by <code>pullRequestId</code> and
+ <code>commentId</code>. The like will be recorded against the requesting user.
+ <p>
+ The authenticated user must have the <strong>REPO_READ</strong> (or higher) permission for the specified
+ repository to access this resource.]]></ns2:doc><ns2:response><ns2:representation
+                        element="errors" status="400"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user is the comment author]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user does not have sufficient permission
+ (<code>REPO_READ</code>).]]></ns2:doc></ns2:representation><ns2:representation
+                        status="204"><ns2:doc><![CDATA[No content response indicating that the request succeeded]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="404"
+                                mediaType="application/json"><ns2:doc><ns3:p xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository, pull request or comment does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resources></ns2:application>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:application
+        xmlns:ns2="http://research.sun.com/wadl/2006/10"><ns2:doc
+        jersey:generatedBy="Jersey: 1.8-atlassian-16 03/23/2015 10:20 PM"
+        xmlns:jersey="http://jersey.java.net/"/><ns2:doc
+        title="REST Resources Provided By: Bitbucket Server - Git SCM REST"
+            xml:lang="en"><![CDATA[
+        Provides a REST Service for leveraging Git functionality
+    ]]></ns2:doc><ns2:grammars><ns2:include
+        href="schema.xsd"/></ns2:grammars><ns2:resources
+            base="http://example.com/rest/"><ns2:resource
+                path="git/1.0/projects/{projectKey}/repos/{repositorySlug}/tags"><ns2:method
+                id="createTag"
+                        name="POST"><ns2:doc><![CDATA[Creates a tag in the specified repository.
+ <p>
+ The authenticated user must have an effective <strong>REPO_WRITE</strong> permission to call this resource.
+ <p>
+ 'LIGHTWEIGHT' and 'ANNOTATED' are the two type of tags that can be created. The 'startPoint' can either be a ref
+  or a 'commit'.]]></ns2:doc><ns2:request><ns2:representation
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"force":"true","message":"A new release tag","name":"release-tag","startPoint":"refs/heads/master","type":"ANNOTATED"}</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                        status="201"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"id":"release-2.0.0","displayId":"refs/tags/release-2.0.0","type":"TAG","latestCommit":"8d351a10fb428c0c1239530256e21cf24f136e73","latestChangeset":"8d351a10fb428c0c1239530256e21cf24f136e73","hash":"8d51122def5632836d1cb1026e879069e10a1e13"}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[a JSON representation of the newly created tag]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="400"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[the tag was not created because the request was invalid, e.g. the provided
+                                  ref name already existed in the repository, or was not a valid ref name in the
+                                  repository, or the start point is invalid]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="403"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to create a
+                                  tag. This could be due to insufficient repository permissions.]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:resource
+                    path="{name:.*}"><ns2:param name="name"
+                    style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the name of the tag to be deleted]]></ns2:doc></ns2:param><ns2:method
+                    id="deleteTag"
+                            name="DELETE"><ns2:doc><![CDATA[Deletes a tag in the specified repository.
+ <p>
+ The authenticated user must have an effective <strong>REPO_WRITE</strong> permission to call this resource.]]></ns2:doc><ns2:response><ns2:representation
+                            element="errors" status="400"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[the tag was not deleted because repository is either empty,
+                                  or is not a git repository]]></ns2:doc></ns2:representation><ns2:representation
+                            status="204"><ns2:doc><![CDATA[an empty response indicating that the tag no longer exists in the repository]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="403"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to delete a
+                                  tag. This could be due to insufficient repository permissions.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[If the tag doesn't exist in the {@link Repository}]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource></ns2:resources></ns2:application>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:application
+        xmlns:ns2="http://research.sun.com/wadl/2006/10"><ns2:doc
+        jersey:generatedBy="Jersey: 1.8-atlassian-16 03/23/2015 10:20 PM"
+        xmlns:jersey="http://jersey.java.net/"/><ns2:doc
+        title="REST Resources Provided By: Bitbucket Server - Mirroring Mirror Capability"
+            xml:lang="en"><![CDATA[
+        Mirroring mirror capability for Bitbucket Server
+    ]]></ns2:doc><ns2:grammars><ns2:include
+        href="schema.xsd"/></ns2:grammars><ns2:resources
+            base="http://example.com/rest/"><ns2:resource
+                path="mirroring/1.0/upstreamServers/{upstreamId}/settings"><ns2:param
+                name="upstreamId" style="template" type="xs:string"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the upstream to change the settings for]]></ns2:doc></ns2:param><ns2:method
+                id="getMirrorSettings"
+                        name="GET"><ns2:doc><![CDATA[Retrieves mirror settings]]></ns2:doc><ns2:response><ns2:representation
+                        element="restMirrorSettings" status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"mode":"all_projects"}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[the mirror settings]]></ns2:doc></ns2:representation><ns2:representation
+                        element="not-found" status="404"
+                mediaType="application/json"><ns2:doc><![CDATA[The upstream server could not be found.]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                id="setMirrorSettings"
+                        name="PUT"><ns2:doc><![CDATA[Sets the settings for the specified upstream]]></ns2:doc><ns2:request><ns2:representation
+                        element="restMirrorSettings"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"mode":"all_projects"}</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                        element="restMirrorSettings" status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"mode":"all_projects"}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[the updated mirror settings]]></ns2:doc></ns2:representation><ns2:representation
+                        element="not-found" status="404"
+                mediaType="application/json"><ns2:doc><![CDATA[The upstream server could not be found.]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:resource
+                    path="mode"><ns2:param name="upstreamId"
+                    style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the upstream server ID]]></ns2:doc></ns2:param><ns2:method
+                    id="getMirrorMode"
+                            name="GET"><ns2:doc><![CDATA[Gets the current mirror mode for the specified upstream]]></ns2:doc><ns2:response><ns2:representation
+                            status="200"
+                            mediaType="text/plain"><ns2:doc><![CDATA[the current mirror mode]]></ns2:doc></ns2:representation><ns2:representation
+                            element="not-found" status="404"
+                    mediaType="application/json"><ns2:doc><![CDATA[The upstream server could not be found.]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="setMirrorMode"
+                            name="PUT"><ns2:doc><![CDATA[Sets the mirror mode for the specified upstream]]></ns2:doc><ns2:request><ns2:representation
+                            mediaType="application/json"/></ns2:request><ns2:response><ns2:representation
+                            status="200"
+                            mediaType="application/json"><ns2:doc><![CDATA[the mode to set]]></ns2:doc></ns2:representation><ns2:representation
+                            element="bad-request" status="400"
+                mediaType="application/json"><ns2:doc><![CDATA[The provided mode is invalid]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="projects/{projectId}"><ns2:param
+                    name="upstreamId" style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the upstream server ID]]></ns2:doc></ns2:param><ns2:param
+                    name="projectId" style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the project ID to stop mirroring]]></ns2:doc></ns2:param><ns2:method
+                    id="startMirroringProject"
+                            name="POST"><ns2:doc><![CDATA[Configures the mirror to mirror the provided project]]></ns2:doc><ns2:response><ns2:representation
+                            status="200"
+                    mediaType="application/json"><ns2:doc><![CDATA[the currently mirrored project IDs]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="stopMirroringProject"
+                            name="DELETE"><ns2:doc><![CDATA[Configures the mirror to no longer mirror the provided project]]></ns2:doc><ns2:response><ns2:representation
+                            status="204"
+                mediaType="application/json"><ns2:doc><![CDATA[the request has been processed]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="projects"><ns2:param name="upstreamId"
+                    style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the upstream server ID]]></ns2:doc></ns2:param><ns2:method
+                    id="getMirroredProjects"
+                            name="GET"><ns2:doc><![CDATA[Returns the IDs of the projects that the mirror is configured to mirror]]></ns2:doc><ns2:response><ns2:representation
+                            status="200"
+                    mediaType="application/json"><ns2:doc><![CDATA[the currently mirrored project IDs]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="startMirroringProjects"
+                            name="POST"><ns2:doc><![CDATA[Configures the mirror to mirror the provided projects]]></ns2:doc><ns2:request><ns2:representation
+                            element="projectIds"
+                            mediaType="application/json"/></ns2:request><ns2:response><ns2:representation
+                            status="200"
+                    mediaType="application/json"><ns2:doc><![CDATA[the currently mirrored project IDs]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="stopMirroringProjects"
+                            name="DELETE"><ns2:doc><![CDATA[Configures the mirror to no longer mirror the provided projects]]></ns2:doc><ns2:request><ns2:representation
+                            element="projectIds"
+                            mediaType="application/json"/></ns2:request><ns2:response><ns2:representation
+                            status="204"
+            mediaType="application/json"><ns2:doc><![CDATA[the request has been processed]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource><ns2:resource
+                path="mirroring/1.0/upstreamServers"><ns2:method
+                id="listUpstreamServers"
+                        name="GET"><ns2:doc><![CDATA[Retrieves a page of upstream servers]]></ns2:doc><ns2:response><ns2:representation
+                        element="page" status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":1,"limit":25,"isLastPage":true,"values":[{"id":"f76a35c5-4592-425d-bf85-b4d9db68e809","baseUrl":"https://bitbucket.company.com","state":"enabled"}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[a page of upstream servers]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:resource
+                    path="{upstreamId}/addon/descriptor"><ns2:param
+                    name="upstreamId" style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the upstream server ID]]></ns2:doc></ns2:param><ns2:method
+                    id="getAddonDescriptor"
+                            name="GET"><ns2:doc><![CDATA[Returns the mirroring atlassian-connect add-on descriptor for the upstream server identified by {@code upstreamId}.
+ <p>
+ This endpoint should only be called by upstream servers]]></ns2:doc><ns2:response><ns2:representation
+                            element="json descriptor" status="200"
+                mediaType="application/json"><ns2:doc><![CDATA[atlassian-connect add-on descriptor]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="{upstreamId}/addon/disabled"><ns2:param
+                    name="upstreamId" style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the upstream server ID]]></ns2:doc></ns2:param><ns2:method
+                    id="onAddonDisabled"
+                            name="POST"><ns2:doc><![CDATA[Callback method that should be called when the mirroring atlassian-connect add-on has been disabled in the
+ upstream server identified by {@code upstreamId}
+ <p>
+ This endpoint should only be called by upstream servers]]></ns2:doc><ns2:response><ns2:representation
+                            status="204"
+                mediaType="application/json"><ns2:doc><![CDATA[an empty response indicating that callback has been processed]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="{upstreamId}/addon/enabled"><ns2:param
+                    name="upstreamId" style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the upstream server ID]]></ns2:doc></ns2:param><ns2:method
+                    id="onAddonEnabled"
+                            name="POST"><ns2:doc><![CDATA[Callback method that should be called when the mirroring atlassian-connect add-on has been enabled in the
+ upstream server identified by {@code upstreamId}
+ <p>
+ This endpoint should only be called by upstream servers]]></ns2:doc><ns2:response><ns2:representation
+                            status="204"
+                mediaType="application/json"><ns2:doc><![CDATA[an empty response indicating that callback has been processed]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="{upstreamId}/addon/installed"><ns2:param
+                    name="upstreamId" style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the upstream server ID]]></ns2:doc></ns2:param><ns2:method
+                    id="onAddonInstalled"
+                            name="POST"><ns2:doc><![CDATA[Callback method that should be called when the mirroring atlassian-connect add-on has been installed in the
+ upstream server identified by {@code upstreamId}
+ <p>
+ This endpoint should only be called by upstream servers]]></ns2:doc><ns2:request><ns2:param
+                            name="user_key" style="query"
+                            type="xs:string"
+                            xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the user key]]></ns2:doc></ns2:param><ns2:representation
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"baseUrl":"https://us-east.bitbucket.example.com","clientKey":"atlassian-mirroring-addon","key":"connect-mirror-install","publicKey":"616161","sharedSecret":"424242"}</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                            status="204"
+                mediaType="application/json"><ns2:doc><![CDATA[an empty response indicating that callback has been processed]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="{upstreamId}/addon/uninstalled"><ns2:param
+                    name="upstreamId" style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the upstream server ID]]></ns2:doc></ns2:param><ns2:method
+                    id="onAddonUninstalled"
+                            name="POST"><ns2:doc><![CDATA[Callback method that should be called when the mirroring atlassian-connect add-on has been uninstalled from the
+ upstream server identified by {@code upstreamId}
+ <p>
+ This endpoint should only be called by upstream servers]]></ns2:doc><ns2:response><ns2:representation
+                            status="204"
+                mediaType="application/json"><ns2:doc><![CDATA[an empty response indicating that callback has been processed]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="{upstreamId}/addon/events"><ns2:param
+                    name="upstreamId" style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the upstream server ID]]></ns2:doc></ns2:param><ns2:method
+                    id="onWebhookEvent"
+                            name="POST"><ns2:doc><![CDATA[Callback method for web hook events this mirror is interested in.
+ <p>
+ This endpoint should only be called by upstream servers]]></ns2:doc><ns2:request><ns2:representation
+                            mediaType="application/json"/></ns2:request><ns2:response><ns2:representation
+                            element="errors" status="400"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The payload was not in the expected format for any of the supported web hooks]]></ns2:doc></ns2:representation><ns2:representation
+                            status="204"
+                mediaType="application/json"><ns2:doc><![CDATA[an empty response indicating that callback has been processed]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="{upstreamId}/repos/{upstreamRepoId}"><ns2:param
+                    name="upstreamRepoId" style="template"
+                    type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the repository ID]]></ns2:doc></ns2:param><ns2:param
+                    name="upstreamId" style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the upstream server ID]]></ns2:doc></ns2:param><ns2:method
+                    id="getMirroredRepository"
+                            name="GET"><ns2:doc><![CDATA[Retrieves all available clone urls for the specified repository.]]></ns2:doc><ns2:response><ns2:representation
+                            element="mirrorRepoInfo" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"available":true,"links":{"clone":[{"href":"https://admin@saigon.stash.example.com/scm/awesomeproject/awesomerepo.git","name":"http"},{"href":"ssh://git@saigon.stash.example.com:7999/awesomeproject/awesomerepo.git","name":"ssh"}]},"mirrorName":"Saigon Mirror","repositoryId":"1","status":"AVAILABLE","updatedDate":1459818898522}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[the mirrored repository's information]]></ns2:doc></ns2:representation><ns2:representation
+                            element="not-found" status="404"
+                mediaType="application/json"><ns2:doc><![CDATA[The upstream server or the repository could not be found.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="{upstreamId}"><ns2:param name="upstreamId"
+                    style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the upstream server ID]]></ns2:doc></ns2:param><ns2:method
+                    id="getUpstreamServer"
+                            name="GET"><ns2:doc><![CDATA[Retrieves upstream server details by ID]]></ns2:doc><ns2:response><ns2:representation
+                            element="upstreamServer" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"id":"f76a35c5-4592-425d-bf85-b4d9db68e809","baseUrl":"https://bitbucket.company.com","state":"enabled"}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[the upstream server]]></ns2:doc></ns2:representation><ns2:representation
+                            element="not-found" status="404"
+                mediaType="application/json"><ns2:doc><![CDATA[The upstream server could not be found.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="{upstreamId}/progress"><ns2:param
+                    name="upstreamId" style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the upstream server ID]]></ns2:doc></ns2:param><ns2:method
+                    id="getSynchronizationProgress"
+                            name="GET"><ns2:doc><![CDATA[Retrieves synchronization progress state for the specified upstream server.
+
+ If there's no progress to report, this resource will return
+ <pre>
+ {@code {"discovering":false,"syncedRepos":0,"totalRepos":0}}
+ </pre>
+
+ If there are repositories in the process of synchronizing, but the precise number hasn't been discovered yet,
+ this resource will return:
+ <pre>
+ {@code {"discovering":true,"syncedRepos":3,"totalRepos":100}}
+ </pre>
+
+ If there is progress to report and the total number of repositories is known, this resource will return:
+ <pre>
+ {@code {"discovering":false,"syncedRepos":242,"totalRepos":1071}}
+ </pre>]]></ns2:doc><ns2:response><ns2:representation
+                            element="progress" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"discovering":false,"syncedRepos":334,"totalRepos":439}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[the synchronization progress state]]></ns2:doc></ns2:representation><ns2:representation
+                            element="not-found" status="404"
+                mediaType="application/json"><ns2:doc><![CDATA[The upstream server could not be found.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="{upstreamId}/synchronization"><ns2:param
+                    name="upstreamId" style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the upstream server ID]]></ns2:doc></ns2:param><ns2:method
+                    id="synchronizeWithUpstream"
+                            name="POST"><ns2:doc><![CDATA[Starts a synchronization with the specified upstream server]]></ns2:doc><ns2:request><ns2:param
+                            name="level" style="query" type="xs:string"
+                            default="DEFAULT"
+                            xmlns:xs="http://www.w3.org/2001/XMLSchema"/></ns2:request><ns2:response><ns2:representation
+                            status="202"
+                            mediaType="application/json"><ns2:doc><![CDATA[The synchronization request was accepted.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="not-found" status="404" mediaType="application/json"><ns2:doc><![CDATA[The upstream server could not be found.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource></ns2:resources></ns2:application>

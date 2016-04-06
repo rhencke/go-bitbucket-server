@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:application
+        xmlns:ns2="http://research.sun.com/wadl/2006/10"><ns2:doc
+        jersey:generatedBy="Jersey: 1.8-atlassian-16 03/23/2015 10:20 PM"
+        xmlns:jersey="http://jersey.java.net/"/><ns2:doc
+        title="REST Resources Provided By: Bitbucket Server - SSH"
+            xml:lang="en"><![CDATA[
+        Provides SSH support
+    ]]></ns2:doc><ns2:grammars><ns2:include
+        href="schema.xsd"/></ns2:grammars><ns2:resources
+            base="http://example.com/rest/"><ns2:resource
+                path="keys/1.0//"><ns2:resource
+                    path="/ssh/{keyId}/projects"><ns2:param name="keyId"
+                    style="template" type="xs:int"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"/><ns2:method
+                    id="getForProjects"
+                            name="GET"><ns2:doc><![CDATA[Retrieves all project-related access keys for the SSH key with id {@code keyId}. If the current user is not an
+ admin any of the projects the key provides access to, none are returned.]]></ns2:doc><ns2:response><ns2:representation
+                            element="page" status="200"
+                            mediaType="application/json"><ns2:doc><![CDATA[the SSH key with ID {@code keyId}.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified key does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="projects/{projectKey}/ssh"><ns2:method
+                    id="addForProject"
+                            name="POST"><ns2:doc><![CDATA[Register a new SSH key and grants access to the project identified in the URL.]]></ns2:doc><ns2:request><ns2:representation
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"key":{"text":"ssh-rsa AAAAB3... me@127.0.0.1"},"permission":"PROJECT_READ"}</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                            status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"key":{"id":1,"text":"ssh-rsa AAAAB3... me@127.0.0.1","label":"me@127.0.0.1"},"project":{"key":"PRJ","id":1,"name":"My Cool Project","description":"The description for my cool project.","public":true,"type":"NORMAL","links":{"self":[{"href":"http://link/to/project"}]}},"permission":"PROJECT_READ"}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The newly created access key]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="400"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The current request contains invalid or missing values.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to add an access
+                                  key to the project.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                    xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified project does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="getForProject"
+                            name="GET"><ns2:doc><![CDATA[Retrieves the access keys for the project identified in the URL.]]></ns2:doc><ns2:response><ns2:representation
+                            element="page" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":1,"limit":25,"isLastPage":true,"values":[{"key":{"id":1,"text":"ssh-rsa AAAAB3... me@127.0.0.1","label":"me@127.0.0.1"},"project":{"key":"PRJ","id":1,"name":"My Cool Project","description":"The description for my cool project.","public":true,"type":"NORMAL","links":{"self":[{"href":"http://link/to/project"}]}},"permission":"PROJECT_READ"}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[A single page of access keys associated with the project.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to retrieve the
+                                  access keys for this project]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified project does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="projects/{projectKey}/ssh/{keyId}"><ns2:param
+                    name="keyId" style="template" type="xs:int"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"/><ns2:method
+                    id="revokeForProject"
+                            name="DELETE"><ns2:doc><![CDATA[Remove an existing access key for the project identified in the URL. If the same SSH key is used as an access
+ key for multiple projects or repositories, only the access to the project identified in the URL will be
+ revoked.]]></ns2:doc><ns2:response><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to remove
+                                  access keys for this project]]></ns2:doc></ns2:representation><ns2:representation
+                            status="204"
+                    mediaType="application/json"><ns2:doc><![CDATA[The access key was deleted (or none was found matching the given id).]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="getForProject"
+                            name="GET"><ns2:doc><![CDATA[Retrieves the access keys for the project identified in the URL.]]></ns2:doc><ns2:response><ns2:representation
+                            element="page" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":1,"limit":25,"isLastPage":true,"values":[{"key":{"id":1,"text":"ssh-rsa AAAAB3... me@127.0.0.1","label":"me@127.0.0.1"},"project":{"key":"PRJ","id":1,"name":"My Cool Project","description":"The description for my cool project.","public":true,"type":"NORMAL","links":{"self":[{"href":"http://link/to/project"}]}},"permission":"PROJECT_READ"}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[A single page of access keys associated with the project.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to retrieve the
+                                  access keys for this project]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified project does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="projects/{projectKey}/ssh/{keyId}/permission/{permission}"><ns2:param
+                    name="keyId" style="template" type="xs:int"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the SSH key ID]]></ns2:doc></ns2:param><ns2:param
+                    name="permission" style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the new permission to be granted to the SSH key]]></ns2:doc></ns2:param><ns2:method
+                    id="updatePermission"
+                            name="PUT"><ns2:doc><![CDATA[Updates the permission granted to the specified SSH key to the project identified in the URL.]]></ns2:doc><ns2:response><ns2:representation
+                            status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"key":{"id":1,"text":"ssh-rsa AAAAB3... me@127.0.0.1","label":"me@127.0.0.1"},"project":{"key":"PRJ","id":1,"name":"My Cool Project","description":"The description for my cool project.","public":true,"type":"NORMAL","links":{"self":[{"href":"http://link/to/project"}]}},"permission":"PROJECT_READ"}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The newly created access key]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions on the project
+                                  to edit its access keys]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified project does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="projects/{projectKey}/repos/{repositorySlug}/ssh/{keyId}/permission/{permission}"><ns2:param
+                    name="keyId" style="template" type="xs:int"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the SSH key ID]]></ns2:doc></ns2:param><ns2:param
+                    name="permission" style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the new permission to be granted to the SSH key]]></ns2:doc></ns2:param><ns2:method
+                    id="updatePermission"
+                            name="PUT"><ns2:doc><![CDATA[Updates the permission granted to the specified SSH key to the project identified in the URL.]]></ns2:doc><ns2:response><ns2:representation
+                            status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"key":{"id":1,"text":"ssh-rsa AAAAB3... me@127.0.0.1","label":"me@127.0.0.1"},"project":{"key":"PRJ","id":1,"name":"My Cool Project","description":"The description for my cool project.","public":true,"type":"NORMAL","links":{"self":[{"href":"http://link/to/project"}]}},"permission":"PROJECT_READ"}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The newly created access key]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions on the project
+                                  to edit its access keys]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified project does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="/ssh/{keyId}"><ns2:param name="keyId"
+                    style="template" type="xs:int"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the identifier of the SSH key]]></ns2:doc></ns2:param><ns2:method
+                    id="revokeMany"
+                            name="DELETE"><ns2:doc><![CDATA[Remove an existing access key for the projects and repositories in the submitted entity. If the same SSH key is
+ used as an access key for multiple projects or repositories not supplied, only the access to the projects
+ or repositories identified will be revoked.]]></ns2:doc><ns2:request><ns2:representation
+                            mediaType="application/json"/></ns2:request><ns2:response><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to remove
+                                  access keys for one or more of the specified projects or repositories]]></ns2:doc></ns2:representation><ns2:representation
+                            status="204"
+                            mediaType="application/json"><ns2:doc><![CDATA[The access keys were deleted (or none was found matching the given id and
+                                  repositories or projects).]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[On or more of the specified repositories or projects does not exist or the key
+                                  itself does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="/ssh/{keyId}/repos"><ns2:param name="keyId"
+                    style="template" type="xs:int"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"/><ns2:method
+                    id="getForRepositories"
+                            name="GET"><ns2:doc><![CDATA[Retrieves all repository-related access keys for the SSH key with id {@code keyId}. If the current user is not
+ an admin of any of the projects the key provides access to, none are returned.]]></ns2:doc><ns2:response><ns2:representation
+                            element="page" status="200"
+                            mediaType="application/json"><ns2:doc><![CDATA[the SSH key with ID {@code keyId}.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified key does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="projects/{projectKey}/repos/{repositorySlug}/ssh"><ns2:method
+                    id="addForRepository"
+                            name="POST"><ns2:doc><![CDATA[Register a new SSH key and grants access to the repository identified in the URL.]]></ns2:doc><ns2:request><ns2:representation
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"key":{"text":"ssh-rsa AAAAB3... me@127.0.0.1"},"permission":"REPO_WRITE"}</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                            status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"key":{"text":"ssh-rsa AAAAB3... me@127.0.0.1"},"repository":{"slug":"my-repo","id":1,"name":"My repo","scmId":"git","state":"AVAILABLE","statusMessage":"Available","forkable":true,"project":{"key":"PRJ","id":1,"name":"My Cool Project","description":"The description for my cool project.","public":true,"type":"NORMAL","links":{"self":[{"href":"http://link/to/project"}]}},"public":true,"links":{"clone":[{"href":"ssh://git@&lt;baseURL&gt;/PRJ/my-repo.git","name":"ssh"},{"href":"https://&lt;baseURL&gt;/scm/PRJ/my-repo.git","name":"http"}],"self":[{"href":"http://link/to/repository"}]}},"permission":"REPO_WRITE"}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The newly created access key]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="400"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The current request contains invalid or missing values.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to add an access
+                                  key to the repository]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                    xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="getForRepository"
+                            name="GET"><ns2:doc><![CDATA[Retrieves the access keys for the repository identified in the URL.]]></ns2:doc><ns2:response><ns2:representation
+                            element="page" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":1,"limit":25,"isLastPage":true,"values":[{"key":{"text":"ssh-rsa AAAAB3... me@127.0.0.1"},"repository":{"slug":"my-repo","id":1,"name":"My repo","scmId":"git","state":"AVAILABLE","statusMessage":"Available","forkable":true,"project":{"key":"PRJ","id":1,"name":"My Cool Project","description":"The description for my cool project.","public":true,"type":"NORMAL","links":{"self":[{"href":"http://link/to/project"}]}},"public":true,"links":{"clone":[{"href":"ssh://git@&lt;baseURL&gt;/PRJ/my-repo.git","name":"ssh"},{"href":"https://&lt;baseURL&gt;/scm/PRJ/my-repo.git","name":"http"}],"self":[{"href":"http://link/to/repository"}]}},"permission":"REPO_WRITE"}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[A single page of access keys for the repository.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to retrieve the
+                                  access keys for this repository]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="projects/{projectKey}/repos/{repositorySlug}/ssh/{keyId}"><ns2:param
+                    name="keyId" style="template" type="xs:int"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"/><ns2:method
+                    id="revokeForRepository"
+                            name="DELETE"><ns2:doc><![CDATA[Remove an existing access key for the repository identified in the URL. If the same SSH key is used as an access
+ key for multiple projects or repositories, only the access to the repository identified in the URL will be
+ revoked.]]></ns2:doc><ns2:response><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to remove
+                                  access keys for this repository]]></ns2:doc></ns2:representation><ns2:representation
+                            status="204"
+                    mediaType="application/json"><ns2:doc><![CDATA[The access key was deleted (or none was found matching the given id).]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="getForRepository"
+                            name="GET"><ns2:doc><![CDATA[Retrieves the access keys for the repository identified in the URL.]]></ns2:doc><ns2:response><ns2:representation
+                            element="page" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":1,"limit":25,"isLastPage":true,"values":[{"key":{"text":"ssh-rsa AAAAB3... me@127.0.0.1"},"repository":{"slug":"my-repo","id":1,"name":"My repo","scmId":"git","state":"AVAILABLE","statusMessage":"Available","forkable":true,"project":{"key":"PRJ","id":1,"name":"My Cool Project","description":"The description for my cool project.","public":true,"type":"NORMAL","links":{"self":[{"href":"http://link/to/project"}]}},"public":true,"links":{"clone":[{"href":"ssh://git@&lt;baseURL&gt;/PRJ/my-repo.git","name":"ssh"},{"href":"https://&lt;baseURL&gt;/scm/PRJ/my-repo.git","name":"http"}],"self":[{"href":"http://link/to/repository"}]}},"permission":"REPO_WRITE"}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[A single page of access keys for the repository.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to retrieve the
+                                  access keys for this repository]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository does not exist]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource><ns2:resource
+                path="ssh/1.0/keys"><ns2:method id="getSshKeys"
+                        name="GET"><ns2:doc><![CDATA[Retrieve a page of ssh keys.]]></ns2:doc><ns2:request><ns2:param
+                        name="user" style="query" type="xs:string"
+                        xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the username of the user to retrieve the keys for.
+                 If no username is specified, the ssh keys will be
+                 retrieved for the current authenticated user.]]></ns2:doc></ns2:param></ns2:request><ns2:response><ns2:representation
+                        element="page" status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":1,"limit":25,"isLastPage":true,"values":[{"id":1,"text":"ssh-rsa AAAAB3... me@127.0.0.1","label":"me@127.0.0.1"}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[A page of ssh keys.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions
+                                  to retrieve the ssh keys. This is only possible when a
+                                  <strong>user</strong> is explicitly supplied.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="404"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[No user matches the supplied <strong>user</strong>]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                id="deleteSshKeys"
+                        name="DELETE"><ns2:doc><![CDATA[Delete all ssh keys for a supplied user.]]></ns2:doc><ns2:request><ns2:param
+                        name="user" style="query" type="xs:string"
+                        xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the username of the user to delete the keys for.
+                 If no username is specified, the ssh keys will
+                 be deleted for the current authenticated user.]]></ns2:doc></ns2:param></ns2:request><ns2:response><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions
+                                  to delete the ssh keys. This is only possible when a
+                                  <strong>user</strong> is explicitly supplied.]]></ns2:doc></ns2:representation><ns2:representation
+                        status="204"><ns2:doc><![CDATA[The ssh keys matching the supplied <strong>user</strong> were deleted.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="404"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[No user matches the supplied <strong>user</strong>]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                id="addSshKey"
+                        name="POST"><ns2:doc><![CDATA[Add a new ssh key to a supplied user.]]></ns2:doc><ns2:request><ns2:param
+                        name="user" style="query" type="xs:string"
+                        xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the username of the user to add the ssh key for.
+                 If no username is specified, the ssh key will
+                 be added for the current authenticated user.]]></ns2:doc></ns2:param><ns2:representation
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"text":"ssh-rsa AAAAB3... me@127.0.0.1"}</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                        element="sshKey" status="201"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"id":1,"text":"ssh-rsa AAAAB3... me@127.0.0.1","label":"me@127.0.0.1"}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The newly created ssh key.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="400"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The ssh key was not created because the key was not a valid
+                                  RSA/DSA/ECDSA key of a supported length.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[Either there is no authenticated user or the currently authenticated user
+                                  has insufficient permissions to add an ssh key. The latter is only
+                                  possible when a <strong>user</strong> is explicitly supplied.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="404"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[No user matches the supplied <strong>user</strong>]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="409"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The ssh key already exists on the system.]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:resource
+                    path="/{keyId}"><ns2:param name="keyId"
+                    style="template" type="xs:int"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the id of the key to delete.]]></ns2:doc></ns2:param><ns2:method
+                    id="deleteSshKey"
+                            name="DELETE"><ns2:doc><![CDATA[Delete an ssh key.]]></ns2:doc><ns2:response><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions
+                                  to delete the ssh key.]]></ns2:doc></ns2:representation><ns2:representation status="204"><ns2:doc><![CDATA[The ssh key matching the supplied <strong>id</strong> was deleted or
+                                  did not exist.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource></ns2:resources></ns2:application>

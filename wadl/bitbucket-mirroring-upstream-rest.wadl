@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:application
+        xmlns:ns2="http://research.sun.com/wadl/2006/10"><ns2:doc
+        jersey:generatedBy="Jersey: 1.8-atlassian-16 03/23/2015 10:20 PM"
+        xmlns:jersey="http://jersey.java.net/"/><ns2:doc
+        title="REST Resources Provided By: Bitbucket Server - Mirroring Upstream Capability"
+            xml:lang="en"><![CDATA[
+        Mirroring upstream capability for Bitbucket Server
+    ]]></ns2:doc><ns2:grammars><ns2:include
+        href="schema.xsd"/></ns2:grammars><ns2:resources
+            base="http://example.com/rest/"><ns2:resource
+                path="mirroring/1.0/account/settings"><ns2:resource
+                    path="preferred-mirror"><ns2:method
+                    id="getPreferredMirrorId"
+                            name="GET"><ns2:doc><![CDATA[Retrieves the current user's preferred mirror server]]></ns2:doc><ns2:response><ns2:representation
+                            status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"id":"B0F5-CS21-45C2-CCK3","baseUrl":"http://atlassian-vietnam.atlassian.com","name":"Mirror","productType":"Bitbucket","productVersion":"4.0.0","lastSeenDate":1459818316044,"enabled":true}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[the preferred mirror server]]></ns2:doc></ns2:representation><ns2:representation
+                            element="not-found" status="404"
+                    mediaType="application/json"><ns2:doc><![CDATA[The user's preferred mirror server could not be found.]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="deletePreferredMirrorId"
+                            name="DELETE"><ns2:doc><![CDATA[Removes the current user's preferred mirror]]></ns2:doc><ns2:response><ns2:representation
+                            status="204"
+                    mediaType="application/json"><ns2:doc><![CDATA[an empty response indicating that the user setting has been updated]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="setPreferredMirrorId"
+                            name="POST"><ns2:doc><![CDATA[Sets the mirror specified by a mirror ID as the current user's preferred mirror]]></ns2:doc><ns2:request><ns2:representation
+                            mediaType="application/json"/></ns2:request><ns2:response><ns2:representation
+                            status="204"
+                            mediaType="application/json"><ns2:doc><![CDATA[an empty response indicating that the user setting has been updated]]></ns2:doc></ns2:representation><ns2:representation
+                            element="not-found" status="404"
+            mediaType="application/json"><ns2:doc><![CDATA[The mirror could not be found.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource><ns2:resource
+                path="mirroring/1.0/mirrorServers"><ns2:method
+                id="listMirrors"
+                        name="GET"><ns2:doc><![CDATA[Returns a list of mirrors]]></ns2:doc><ns2:response><ns2:representation
+                        element="page" status="200"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":2,"limit":25,"isLastPage":true,"values":[{"id":"B0F5-CS21-45C2-CCK3","baseUrl":"http://atlassian-vietnam.atlassian.com","name":"Mirror","productType":"Bitbucket","productVersion":"4.0.0","lastSeenDate":1459818316044,"enabled":true},{"id":"B08E-RC7D-42H6-9SWU","baseUrl":"http://atlassian-vietnam.atlassian.com","name":"Mirror Vietnam","productType":"Bitbucket","productVersion":"4.0.0","lastSeenDate":1459818891865,"enabled":true}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[a page of mirrors]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:resource
+                    path="{mirrorId}"><ns2:param name="mirrorId"
+                    style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the ID of the mirror to remove]]></ns2:doc></ns2:param><ns2:method
+                    id="getMirror"
+                            name="GET"><ns2:doc><![CDATA[Returns the mirror specified by a mirror ID]]></ns2:doc><ns2:response><ns2:representation
+                            element="mirror" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"id":"B0F5-CS21-45C2-CCK3","baseUrl":"http://atlassian-vietnam.atlassian.com","name":"Mirror","productType":"Bitbucket","productVersion":"4.0.0","lastSeenDate":1459818316044,"enabled":true}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[the mirror]]></ns2:doc></ns2:representation><ns2:representation
+                            element="not-found" status="404"
+                    mediaType="application/json"><ns2:doc><![CDATA[The mirror could not be found.]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="remove"
+                            name="DELETE"><ns2:doc><![CDATA[Removes a mirror, disabling all access and notifications for the mirror server in question]]></ns2:doc><ns2:response><ns2:representation
+            status="204"><ns2:doc><![CDATA[an empty response indicating that the mirror has been removed]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource><ns2:resource
+                path="mirroring/1.0/repos"><ns2:method id="getAll"
+                        name="GET"><ns2:doc><![CDATA[Returns a page of repositories enriched with a content hash]]></ns2:doc><ns2:response><ns2:representation
+                        element="page" status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":1,"limit":25,"isLastPage":true,"values":[{"slug":"my-repo","id":1,"name":"My repo","scmId":"git","state":"AVAILABLE","statusMessage":"Available","forkable":true,"project":{"key":"PRJ","id":1,"name":"My Cool Project","description":"The description for my cool project.","public":true,"type":"NORMAL","links":{"self":[{"href":"http://link/to/project"}]}},"public":true,"links":{"clone":[{"href":"ssh://git@&lt;baseURL&gt;/PRJ/my-repo.git","name":"ssh"},{"href":"https://&lt;baseURL&gt;/scm/PRJ/my-repo.git","name":"http"}],"self":[{"href":"http://link/to/repository"}]},"properties":{"contentHash":"b067f7e0-884f-11e5-af63-feff819cdc9f"}}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[A page of repositories with content hashes]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="409"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[Mirroring is not available]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:resource
+                    path="{repoId}"><ns2:param name="repoId"
+                    style="template" type="xs:int"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the ID of the requested repository]]></ns2:doc></ns2:param><ns2:method
+                    id="getById"
+                            name="GET"><ns2:doc><![CDATA[Returns a repository enriched with a content hash]]></ns2:doc><ns2:response><ns2:representation
+                            element="repository" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"slug":"my-repo","id":1,"name":"My repo","scmId":"git","state":"AVAILABLE","statusMessage":"Available","forkable":true,"project":{"key":"PRJ","id":1,"name":"My Cool Project","description":"The description for my cool project.","public":true,"type":"NORMAL","links":{"self":[{"href":"http://link/to/project"}]}},"public":true,"links":{"clone":[{"href":"ssh://git@&lt;baseURL&gt;/PRJ/my-repo.git","name":"ssh"},{"href":"https://&lt;baseURL&gt;/scm/PRJ/my-repo.git","name":"http"}],"self":[{"href":"http://link/to/repository"}]},"properties":{"contentHash":"b067f7e0-884f-11e5-af63-feff819cdc9f"}}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The repository with the specified repoId]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="409"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[Repository not found]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="{repoId}/mirrors"><ns2:param name="repoId"
+                    style="template" type="xs:int"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the ID of the requested repository]]></ns2:doc></ns2:param><ns2:method
+                    id="getRepositoryMirrors"
+                            name="GET"><ns2:doc><![CDATA[Returns a page of mirrors for a repository.
+ This resource will return <strong>all mirrors</strong> along with authorized links to the mirror's repository
+ REST resource. To determine if a repository is available on the mirror, the returned URL needs to be called.]]></ns2:doc><ns2:response><ns2:representation
+                            element="repositoryDescriptor" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"mirrorServer":{"id":"BSERV-1337-ABCD-R2D2-C3P0","baseUrl":"https://us-east.bitbucket.example.com","name":"US East Mirror","productType":"Bitbucket Server","productVersion":"4.2.0","lastSeenDate":1459818948927,"enabled":true},"links":{"self":[{"href":"https://us-east.bitbucket.example.com/rest/mirroring/1.0/repos/1?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"}]}}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The mirrored repository descriptor]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="409"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[Mirroring is not available]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource><ns2:resource
+                path="mirroring/1.0/mirrorServers/{mirrorId}/webPanels"><ns2:resource
+                    path="config"><ns2:param name="mirrorId"
+                    style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"/><ns2:method
+                    id="get"
+                            name="GET"><ns2:doc><![CDATA[This renders the HTML that is needed to get the remote connect web-panel on the mirror.]]></ns2:doc><ns2:response><ns2:representation
+            mediaType="text/html"/></ns2:response></ns2:method></ns2:resource></ns2:resource><ns2:resource
+                path="mirroring/1.0/requests"><ns2:method
+                id="listRequests"
+                        name="GET"><ns2:doc><![CDATA[Retrieves a mirroring request]]></ns2:doc><ns2:request><ns2:param
+                        name="state" style="query" type="xs:string"
+                        xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[(optional) the request state to filter on]]></ns2:doc></ns2:param></ns2:request><ns2:response><ns2:representation
+                        element="page" status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":1,"limit":25,"isLastPage":true,"values":[{"id":1,"addonDescriptorUri":"http://bitbucket-eu.atlassian.com:7990/bitbucket/rest/mirroring/1.0/descriptor","createdDate":1459818948723,"mirrorBaseUrl":"http://bitbucket-eu.atlassian.com:7990/bitbucket","mirrorId":"4f0eb5fc-67fc-48f8-b4a7-87981f026c6a","mirrorName":"Bitbucket Mirror","productType":"Bitbucket","productVersion":"4.0.0","state":"pending"}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[A page of mirroring requests]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                id="register"
+                        name="POST"><ns2:doc><![CDATA[Creates a new mirroring request]]></ns2:doc><ns2:request><ns2:representation
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"addonDescriptorUri":"http://bitbucket-eu.atlassian.com:7990/bitbucket/rest/mirroring/1.0/descriptor","createdDate":1459818948721,"mirrorBaseUrl":"http://bitbucket-eu.atlassian.com:7990/bitbucket","mirrorId":"4f0eb5fc-67fc-48f8-b4a7-87981f026c6a","mirrorName":"Bitbucket Mirror","productType":"Bitbucket","productVersion":"4.0.0","state":"pending"}</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                        status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"id":1,"addonDescriptorUri":"http://bitbucket-eu.atlassian.com:7990/bitbucket/rest/mirroring/1.0/descriptor","createdDate":1459818948723,"mirrorBaseUrl":"http://bitbucket-eu.atlassian.com:7990/bitbucket","mirrorId":"4f0eb5fc-67fc-48f8-b4a7-87981f026c6a","mirrorName":"Bitbucket Mirror","productType":"Bitbucket","productVersion":"4.0.0","state":"pending"}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The created mirroring request]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="409"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The request was invalid or missing]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:resource
+                    path="{mirroringRequestId}/reject"><ns2:param
+                    name="mirroringRequestId" style="template"
+                    type="xs:int"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the ID of the request to reject]]></ns2:doc></ns2:param><ns2:method
+                    id="reject"
+                            name="POST"><ns2:doc><![CDATA[Rejects a mirroring request]]></ns2:doc><ns2:response><ns2:representation
+                            status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"id":1,"addonDescriptorUri":"http://bitbucket-eu.atlassian.com:7990/bitbucket/rest/mirroring/1.0/descriptor","createdDate":1459818948723,"mirrorBaseUrl":"http://bitbucket-eu.atlassian.com:7990/bitbucket","mirrorId":"4f0eb5fc-67fc-48f8-b4a7-87981f026c6a","mirrorName":"Bitbucket Mirror","productType":"Bitbucket","productVersion":"4.0.0","state":"pending"}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The rejected mirroring request]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="409"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The request could not be found]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="{mirroringRequestId}"><ns2:param
+                    name="mirroringRequestId" style="template"
+                    type="xs:int"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the ID of the mirroring request to delete]]></ns2:doc></ns2:param><ns2:method
+                    id="get"
+                            name="GET"><ns2:doc><![CDATA[Retrieves a mirroring request]]></ns2:doc><ns2:response><ns2:representation
+                            status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"id":1,"addonDescriptorUri":"http://bitbucket-eu.atlassian.com:7990/bitbucket/rest/mirroring/1.0/descriptor","createdDate":1459818948723,"mirrorBaseUrl":"http://bitbucket-eu.atlassian.com:7990/bitbucket","mirrorId":"4f0eb5fc-67fc-48f8-b4a7-87981f026c6a","mirrorName":"Bitbucket Mirror","productType":"Bitbucket","productVersion":"4.0.0","state":"pending"}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The mirroring request]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="409"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                    xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The request could not be found]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="delete"
+                            name="DELETE"><ns2:doc><![CDATA[Deletes a mirroring request]]></ns2:doc><ns2:response><ns2:representation
+                            status="204"
+                            mediaType="application/json"><ns2:doc><![CDATA[The request was deleted]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="409"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The request could not be found]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="{mirroringRequestId}/accept"><ns2:param
+                    name="mirroringRequestId" style="template"
+                    type="xs:int"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the ID of the request to accept]]></ns2:doc></ns2:param><ns2:method
+                    id="accept"
+                            name="POST"><ns2:doc><![CDATA[Accepts a mirroring request]]></ns2:doc><ns2:response><ns2:representation
+                            status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"id":"B0F5-CS21-45C2-CCK3","baseUrl":"http://atlassian-vietnam.atlassian.com","name":"Mirror","productType":"Bitbucket","productVersion":"4.0.0","lastSeenDate":1459818316044,"enabled":true}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The accepted mirror server]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="409"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The request could not be found]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource><ns2:resource
+                path="mirroring/1.0/authenticate"><ns2:method
+                id="authenticate"
+                        name="POST"><ns2:doc><![CDATA[Authenticates on behalf of a user. Used by mirrors to check the credentials supplied to them by users.
+ If successful a user and their {@link EffectivePermission effective permissions} are
+ returned. Currently only username/password and SSH credentials are supported.]]></ns2:doc><ns2:request><ns2:representation
+                        mediaType="application/json"/></ns2:request><ns2:response><ns2:representation
+                        element="user" status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"name":"jcitizen","emailAddress":"jane@example.com","id":101,"displayName":"Jane Citizen","active":true,"slug":"jcitizen","type":"NORMAL","effectivePermissions":[{"permission":"LICENSED_USER"},{"permission":"PROJECT_VIEW","projectId":7},{"permission":"REPO_WRITE","repositoryId":6}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The user for the supplied credentials and their {@link EffectivePermission effective permissions}.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="400"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[If the supplied credentials are incomplete or not understood.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user is not permitted
+                                  to authenticate on behalf of users or authentication with the
+                                  supplied user credentials failed for some reason]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                path="mirroring/1.0/analyticsSettings"><ns2:method
+                id="analyticsSettings"
+                        name="GET"><ns2:response><ns2:representation
+                        status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"canCollectAnalytics":true,"serviceEntitlementNumber":"SEN-500"}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The analytics settings from upstream]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resources></ns2:application>

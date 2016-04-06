@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:application
+        xmlns:ns2="http://research.sun.com/wadl/2006/10"><ns2:doc
+        jersey:generatedBy="Jersey: 1.8-atlassian-16 03/23/2015 10:20 PM"
+        xmlns:jersey="http://jersey.java.net/"/><ns2:doc
+        title="REST Resources Provided By: Bitbucket Server - Ref Restriction"
+            xml:lang="en"><![CDATA[
+        Provides the ability to apply ref restrictions to enforce branch permissions
+    ]]></ns2:doc><ns2:grammars><ns2:include
+        href="schema.xsd"/></ns2:grammars><ns2:resources
+            base="http://example.com/rest/"><ns2:resource
+                path="branch-permissions/2.0/projects/{projectKey}/repos/{repositorySlug}"><ns2:resource
+                    path="restrictions"><ns2:method
+                    id="createRestriction"
+                            name="POST"><ns2:doc><![CDATA[Create a restriction for the supplied branch or set of branches.
+ <p>
+ A restriction means preventing writes on the specified branch(es) by all except a set of users and/or groups, or preventing specific
+ operations such as branch deletion.
+ <p>
+ For example, you can restrict write access on 'master' to just the 'senior-developer' group, or prevent anyone from deleting that branch.
+ <p>
+ The request matcher and type must conform to the following.
+
+ <ul>
+     <li> The matcher can be one of the following types</li>
+              <ul>
+                  <li>
+                       'BRANCH' represents a specific Branch name. You must supply the fully qualified name of the ref to restrict, e.g. "refs/heads/master"
+                       instead of "master".
+                  </li>
+                  <li>
+                      'PATTERN' represents a wildcard pattern that may match multiple branches. You must specify a valid
+                      <a href="https://confluence.atlassian.com/display/STASH/Branch+permission+patterns">Branch Permission Pattern</a>.
+                  </li>
+                  <li>
+                      'MODEL_CATEGORY' represents Branch prefixes in the Branching model for the repository. The 'id' must be one of
+                      <ul>
+                          <li>'FEATURE'</li>
+                          <li>'BUGFIX'</li>
+                          <li>'HOTFIX'</li>
+                          <li>'RELEASE'</li>
+                      </ul>
+                      See the Branch REST API for more information.
+                  </li>
+                  <li>
+                      'MODEL_BRANCH' represents either the Development or Production branch in the branching model for the repository. The 'id' must be one of
+                      <ul>
+                          <li>'development'</li>
+                          <li>'production'</li>
+                      </ul>
+                      See the Branch REST API for more information.
+                  </li>
+              </ul>
+     </li>
+ </ul>
+ <ul>
+ <li>Type: Set and be one of <ul>
+     <li>'pull-request-only'</li>
+     <li>'fast-forward-only'</li>
+     <li>'no-deletes'</li>
+     <li>'read-only'</li>
+ </ul>
+ </li>
+ <p>
+ The authenticated user must have <strong>REPO_ADMIN</strong> permission or higher
+ to call this resource.
+ Only authenticated users may call this resource.
+
+ <p>]]></ns2:doc><ns2:request><ns2:representation
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"type":"read-only","matcher":{"id":"refs/tags/**","displayId":"refs/tags/**","type":{"id":"PATTERN","name":"Pattern"},"active":true},"users":["bman","tstark","hulk"],"groups":["bitbucket-users"]}</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                            element="restriction" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"id":2,"type":"read-only","matcher":{"id":"release*","displayId":"release*","type":{"id":"PATTERN","name":"Pattern"},"active":true},"users":[{"name":"jcitizen","emailAddress":"jane@example.com","id":101,"displayName":"Jane Citizen","active":true,"slug":"jcitizen","type":"NORMAL"}],"groups":["bitbucket-users"]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[Response contains the ref restriction that was just created.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="400"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":"field_a","message":"A detailed validation error message for field_a.","exceptionName":null},{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The request has failed validation.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="validation" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                    xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to perform this operation.]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="createRestrictions"
+                            name="POST"><ns2:doc><![CDATA[Allows creating multiple restrictions at once.]]></ns2:doc><ns2:request><ns2:representation
+                                    mediaType="application/vnd.atl.bitbucket.bulk+json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>[{"type":"read-only","matcher":{"id":"refs/tags/**","displayId":"refs/tags/**","type":{"id":"PATTERN","name":"Pattern"},"active":true},"users":["bman","tstark","hulk"],"groups":["bitbucket-users"]},{"type":"read-only","matcher":{"id":"refs/heads/**","displayId":"refs/heads/**","type":{"id":"PATTERN","name":"Pattern"},"active":true},"users":[],"groups":["bitbucket-developers"]}]</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                            element="restriction" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>[{"id":2,"type":"read-only","matcher":{"id":"release*","displayId":"release*","type":{"id":"PATTERN","name":"Pattern"},"active":true},"users":[{"name":"jcitizen","emailAddress":"jane@example.com","id":101,"displayName":"Jane Citizen","active":true,"slug":"jcitizen","type":"NORMAL"}],"groups":["bitbucket-users"]}]</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[Response contains the ref restrictions that were just created.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="400"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":"field_a","message":"A detailed validation error message for field_a.","exceptionName":null},{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The request has failed validation.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="validation" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                    xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to perform this operation.]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="getRestrictions"
+                            name="GET"><ns2:doc><![CDATA[Search for restrictions using the supplied parameters.
+ <p>
+ The authenticated user must have <strong>REPO_ADMIN</strong> permission or higher to call this resource.
+ Only authenticated users may call this resource.
+ <p>]]></ns2:doc><ns2:request><ns2:param
+                            name="type" style="query" type="xs:string"
+                            xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[(optional) types of restrictions to filter on: one of 'read-only', 'no-deletes', 'fast-forward-only' or 'pull-request-only'.]]></ns2:doc></ns2:param><ns2:param
+                            name="matcherType" style="query"
+                            type="xs:string"
+                            xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[(optional) matcher type to filter on: one of 'BRANCH', 'PATTERN', 'MODEL_CATEGORY' or 'MODEL_BRANCH'.]]></ns2:doc></ns2:param><ns2:param
+                            name="matcherId" style="query"
+                            type="xs:string"
+                            xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[(optional) matcher id to filter on. Requires the matcherType parameter to be specified also.]]></ns2:doc></ns2:param></ns2:request><ns2:response><ns2:representation
+                            element="page" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":2,"limit":25,"isLastPage":true,"values":[{"id":2,"type":"read-only","matcher":{"id":"release*","displayId":"release*","type":{"id":"PATTERN","name":"Pattern"},"active":true},"users":[{"name":"jcitizen","emailAddress":"jane@example.com","id":101,"displayName":"Jane Citizen","active":true,"slug":"jcitizen","type":"NORMAL"}],"groups":["bitbucket-users"]},{"id":2,"type":"pull-request-only","matcher":{"id":"feature/**","displayId":"feature/**","type":{"id":"PATTERN","name":"Pattern"},"active":true},"users":[],"groups":[]}],"start":1}</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation><ns2:representation
+                            element="not-found" status="404"
+                mediaType="application/json"><ns2:doc><![CDATA[The restriction could not be found.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="restrictions/{id}"><ns2:param name="id"
+                    style="template" type="xs:int"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"/><ns2:method
+                    id="deleteRestriction"
+                            name="DELETE"><ns2:doc><![CDATA[Deletes a restriction as specified by a restriction id.
+ <p>
+ The authenticated user must have <strong>REPO_ADMIN</strong> permission or higher
+ to call this resource.
+ Only authenticated users may call this resource.
+ <p>]]></ns2:doc><ns2:response><ns2:representation
+                    status="204"><ns2:doc><![CDATA[an empty response indicating that the restriction no longer exists on the repository]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="getRestriction"
+                            name="GET"><ns2:doc><![CDATA[Returns a restriction as specified by a restriction id.
+ <p>
+ The authenticated user must have <strong>REPO_ADMIN</strong> permission or higher
+ to call this resource.
+ Only authenticated users may call this resource.
+ <p>]]></ns2:doc><ns2:response><ns2:representation
+                            element="restriction" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"id":2,"type":"read-only","matcher":{"id":"release*","displayId":"release*","type":{"id":"PATTERN","name":"Pattern"},"active":true},"users":[{"name":"jcitizen","emailAddress":"jane@example.com","id":101,"displayName":"Jane Citizen","active":true,"slug":"jcitizen","type":"NORMAL"}],"groups":["bitbucket-users"]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The restriction that was created]]></ns2:doc></ns2:representation><ns2:representation
+                            element="not-found" status="404"><ns2:doc><![CDATA[The restriction could not be found.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource></ns2:resources></ns2:application>

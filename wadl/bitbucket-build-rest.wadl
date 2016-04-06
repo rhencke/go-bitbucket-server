@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:application
+        xmlns:ns2="http://research.sun.com/wadl/2006/10"><ns2:doc
+        jersey:generatedBy="Jersey: 1.8-atlassian-16 03/23/2015 10:20 PM"
+        xmlns:jersey="http://jersey.java.net/"/><ns2:doc
+        title="REST Resources Provided By: Bitbucket Server - Build"
+            xml:lang="en"><![CDATA[
+        Provides support for tracking build results
+    ]]></ns2:doc><ns2:grammars><ns2:include
+        href="schema.xsd"/></ns2:grammars><ns2:resources
+            base="http://example.com/rest/"><ns2:resource
+                path="build-status/1.0/commits"><ns2:resource
+                    path="stats/{commitId}"><ns2:param name="commitId"
+                    style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[full SHA1 of the commit (ex: <code>e00cf62997a027bbf785614a93e2e55bb331d268</code>)]]></ns2:doc></ns2:param><ns2:method
+                    id="getBuildStatusStats"
+                            name="GET"><ns2:doc><![CDATA[Gets statistics regarding the builds associated with a commit.]]></ns2:doc><ns2:request><ns2:param
+                            name="includeUnique" style="query"
+                            type="xs:boolean" default="false"
+                            xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[include a unique build result if there is either only one failed build,
+                      only one in-progress build or only one successful build]]></ns2:doc></ns2:param></ns2:request><ns2:response><ns2:representation
+                            status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"successful":3,"inProgress":0,"failed":1}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The number of successful/failed/in-progress builds for the commit]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"You are not permitted to access this resource","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The user is not authenticated or does not have the <strong>LICENSED</strong> permission.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="stats"><ns2:method
+                    id="getMultipleBuildStatusStats"
+                            name="POST"><ns2:doc><![CDATA[Produces a list of the build statistics for multiple commits.
+ <p>
+ Commits <em>without any builds associated with them</em> will not be returned. For example if the
+ commit <code>e00cf62997a027bbf785614a93e2e55bb331d268</code> does not have any build statuses associated
+ with it, it will not be present in the response.]]></ns2:doc><ns2:request><ns2:representation
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>["db0dd118fa6ccdf1d593fef00df839dd27702df7","99e9634a6d1dbb2e0c12d7c22aad6c0f66f1c489","6f6cf2f1afa443b03de1e586ee6ece98f4b46633","29357b5a57a0a1149dc5e7761fd89b02d22353c4","056b647404c611003fe260e9766cd5facfdc7b3a","c2d9e5b9e07f90bf584b2f5aeceed5a78c68a7ce","bde37280e62fcc2b1151b50fe91f387d1e84abee","dc56b0f2ce65245fa8ddd67711765a915602541f","290998570c81dfc4c2d9152391ecfe2b752ac8c8","a464d845c05da15fec9d5580715ada7af56b8772","4d0cfc66f56e05cc86127a4e5e1a88c32c689af8"]</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                            status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"db0dd118fa6ccdf1d593fef00df839dd27702df7":{"successful":3,"inProgress":0,"failed":1},"bde37280e62fcc2b1151b50fe91f387d1e84abee":{"successful":0,"inProgress":1,"failed":1},"4d0cfc66f56e05cc86127a4e5e1a88c32c689af8":{"successful":2,"inProgress":0,"failed":0}}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The number of successful/failed/in-progress builds for each commit
+                                  (with the caveat that the commits <em>without any builds associated with
+                                  them</em> will not be present in the response)]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"You are not permitted to access this resource","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The user is not authenticated or does not have the <strong>LICENSED</strong> permission.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource><ns2:resource
+                    path="{commitId}"><ns2:param name="commitId"
+                    style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[full SHA1 of the commit (ex: <code>e00cf62997a027bbf785614a93e2e55bb331d268</code>)]]></ns2:doc></ns2:param><ns2:method
+                    id="addBuildStatus"
+                            name="POST"><ns2:doc><![CDATA[Associates a build status with a commit.
+ <p>
+ The <code>state</code>, the <code>key</code> and the <code>url</code> are mandatory. The <code>name</code> and
+ <code>description</code> fields are optional.
+ <p>
+ All fields (mandatory or optional) are limited to 255 characters, except for the <code>url</code>,
+ which is limited to 450 characters.
+ <p>
+ Supported values for the <code>state</code> are <code>SUCCESSFUL</code>, <code>FAILED</code>
+ and <code>INPROGRESS</code>.
+ <p>
+ The authenticated user must have <strong>LICENSED</strong> permission or higher to call this resource.]]></ns2:doc><ns2:request><ns2:representation
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"state":"SUCCESSFUL","key":"REPO-MASTER","name":"REPO-MASTER-42","url":"https://bamboo.example.com/browse/REPO-MASTER-42","description":"Changes by John Doe"}</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                            element="errors" status="400"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"Please specify a non-blank key","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[An error message if the <code>commitId</code> if not a full 40-characters SHA1,
+ if the build status has a missing mandatory field or if the fields are too large]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"You are not permitted to access this resource","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The user is not authenticated or does not have the <strong>LICENSED</strong> permission.]]></ns2:doc></ns2:representation><ns2:representation
+                    status="204"><ns2:doc><![CDATA[An empty response if the build status was successfully stored]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                    id="getBuildStatus"
+                            name="GET"><ns2:doc><![CDATA[Gets the build statuses associated with a commit.]]></ns2:doc><ns2:response><ns2:representation
+                            status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":1,"limit":25,"isLastPage":true,"values":[{"state":"SUCCESSFUL","key":"REPO-MASTER","name":"REPO-MASTER-42","url":"https://bamboo.example.com/browse/REPO-MASTER-42","description":"Changes by John Doe","dateAdded":1459818822738}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[a page of build statuses associated with the commit
+                                  (limited to the most recent 100 build statuses associated with the commit)]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"You are not permitted to access this resource","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The user is not authenticated or does not have the <strong>LICENSED</strong> permission.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource></ns2:resources></ns2:application>

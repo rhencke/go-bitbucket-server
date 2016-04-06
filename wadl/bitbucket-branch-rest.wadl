@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:application
+        xmlns:ns2="http://research.sun.com/wadl/2006/10"><ns2:doc
+        jersey:generatedBy="Jersey: 1.8-atlassian-16 03/23/2015 10:20 PM"
+        xmlns:jersey="http://jersey.java.net/"/><ns2:doc
+        title="REST Resources Provided By: Bitbucket Server - Branch"
+            xml:lang="en"><![CDATA[
+        Provides categorization, creation and workflow support for branches
+    ]]></ns2:doc><ns2:grammars><ns2:include
+        href="schema.xsd"/></ns2:grammars><ns2:resources
+            base="http://example.com/rest/"><ns2:resource
+                path="branch-utils/1.0/projects/{projectKey}/repos/{repositorySlug}/branches"><ns2:method
+                id="createBranch"
+                        name="POST"><ns2:doc><![CDATA[Creates a branch in the specified repository.
+ <p>
+ The authenticated user must have an effective <strong>REPO_WRITE</strong> permission to call this resource. If
+ branch permissions are set up in the repository, the authenticated user must also have access to the branch name
+ that is to be created.]]></ns2:doc><ns2:request><ns2:representation
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"name":"feature/my-feature-branch","startPoint":"refs/heads/master"}</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                        status="201"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"id":"refs/heads/master","displayId":"master","type":"BRANCH","latestCommit":"8d51122def5632836d1cb1026e879069e10a1e13","latestChangeset":"8d51122def5632836d1cb1026e879069e10a1e13","isDefault":true}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[a JSON representation of the newly created branch]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="400"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[the branch was not created because the request was invalid, e.g. the provided
+                                  ref name already existed in the repository, or was not a valid ref name in the
+                                  repository]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to create a
+                                  branch. This could be due to insufficient repository permissions, or lack of
+                                  branch permission for the provided ref name]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                id="deleteBranch"
+                        name="DELETE"><ns2:doc><![CDATA[Deletes a branch in the specified repository.
+ <p>
+ If the branch does not exist, this operation will not raise an error. In other words after calling this resource
+ and receiving a 204 response the branch provided in the request is guaranteed to not exist in the specified
+ repository any more, regardless of its existence beforehand.
+ <p>
+ The optional 'endPoint' parameter of the request may contain a commit ID that the provided ref name is
+ expected to point to. Should the ref point to a different commit ID, a 400 response will be returned with
+ appropriate error details.
+ <p>
+ The authenticated user must have an effective <strong>REPO_WRITE</strong> permission to call this resource. If
+ branch permissions are set up in the repository, the authenticated user must also have access to the branch name
+ that is to be deleted.]]></ns2:doc><ns2:request><ns2:representation
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"name":"refs/heads/my-branch","dryRun":false}</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                        element="errors" status="400"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[the branch was not deleted because the request was invalid, e.g. no ref name
+                                  to delete was provided, or the provided ref name points to the default branch
+                                  in the repository that cannot be deleted]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to delete a
+                                  branch. This could be due to insufficient repository permissions, or lack of
+                                  branch permission for the provided ref name.]]></ns2:doc></ns2:representation><ns2:representation
+                status="204"><ns2:doc><![CDATA[an empty response indicating that the branch no longer exists in the repository]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:resource
+                    path="info/{commitId}"><ns2:param name="commitId"
+                    style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[full SHA1 of the commit (ex: <code>e00cf62997a027bbf785614a93e2e55bb331d268</code>)]]></ns2:doc></ns2:param><ns2:method
+                    id="findByCommit"
+                            name="GET"><ns2:doc><![CDATA[Gets the branch information associated with a single commit from a given repository.]]></ns2:doc><ns2:response><ns2:representation
+                            status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":2,"limit":25,"isLastPage":true,"values":[{"id":"refs/heads/branch-a","displayId":"branch-a","type":"BRANCH"},{"id":"refs/heads/branch-b","displayId":"branch-b","type":"BRANCH"}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[a page of branch refs associated with the commit]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="500"
+            mediaType="application/json"><ns2:doc><![CDATA[The request has timed out processing the branch request]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource><ns2:resource
+                path="branch-utils/1.0/projects/{projectKey}/repos/{repositorySlug}/branchmodel"><ns2:method
+                id="getBranchModel"
+                        name="GET"><ns2:doc><![CDATA[Get the effective Branch Model associated with the repository.
+ <p>
+ The authenticated user must have the <strong>REPO_READ</strong> (or higher) permission for the specified
+ repository to call this resource.]]></ns2:doc><ns2:response><ns2:representation
+                        status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"development":{"id":"refs/heads/master","displayId":"master","type":"BRANCH","latestCommit":"8d51122def5632836d1cb1026e879069e10a1e13","latestChangeset":"8d51122def5632836d1cb1026e879069e10a1e13","isDefault":true},"production":{"id":"refs/heads/master","displayId":"master","type":"BRANCH","latestCommit":"8d51122def5632836d1cb1026e879069e10a1e13","latestChangeset":"8d51122def5632836d1cb1026e879069e10a1e13","isDefault":true},"types":[{"id":"BUGFIX","displayName":"Bugfix","prefix":"bugfix/"},{"id":"FEATURE","displayName":"Feature","prefix":"feature/"}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The branch model associated with the specified repository.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user does not have sufficient permission (REPO_READ)
+ to query the branch model of the repository.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="404"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository does not exist, or the branch model is not defined
+ for the specified repository]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="409"
+                                mediaType="application/json"><ns2:doc><ns3:p xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository is empty - the branch model cannot be constructed]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resources></ns2:application>

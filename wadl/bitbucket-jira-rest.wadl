@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:application
+        xmlns:ns2="http://research.sun.com/wadl/2006/10"><ns2:doc
+        jersey:generatedBy="Jersey: 1.8-atlassian-16 03/23/2015 10:20 PM"
+        xmlns:jersey="http://jersey.java.net/"/><ns2:doc
+        title="REST Resources Provided By: Bitbucket Server - JIRA Integration"
+            xml:lang="en"><![CDATA[
+        Provides Bitbucket Server's JIRA integration
+    ]]></ns2:doc><ns2:grammars><ns2:include
+        href="schema.xsd"/></ns2:grammars><ns2:resources
+            base="http://example.com/rest/"><ns2:resource
+                path="jira/1.0/issues"><ns2:resource
+                    path="{issueKey}/commits"><ns2:param name="issueKey"
+                    style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the issue key to search by.]]></ns2:doc></ns2:param><ns2:method
+                    id="getCommits"
+                            name="GET"><ns2:doc><![CDATA[Retrieve a page of changesets associated with the given issue key.]]></ns2:doc><ns2:request><ns2:param
+                            name="maxChanges" style="query"
+                            type="xs:int" default="10"
+                            xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[the maximum number of changes to retrieve for each changeset.]]></ns2:doc></ns2:param></ns2:request><ns2:response><ns2:representation
+                            element="page" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"size":1,"limit":25,"isLastPage":true,"values":[{"fromCommit":{"id":"abcdef0123abcdef4567abcdef8987abcdef6543","displayId":"abcdef0"},"toCommit":{"id":"abcdef0123abcdef4567abcdef8987abcdef6543","displayId":"abcdef0123a","author":{"name":"charlie","emailAddress":"charlie@example.com"},"authorTimestamp":1459818937570,"message":"WIP on feature 1","parents":[{"id":"abcdef0123abcdef4567abcdef8987abcdef6543","displayId":"abcdef0"}]},"changes":{"size":1,"limit":25,"isLastPage":true,"values":[{"contentId":"abcdef0123abcdef4567abcdef8987abcdef6543","fromContentId":"bcdef0123abcdef4567abcdef8987abcdef6543a","path":{"components":["new","path","to","file.txt"],"parent":"new/path/to","name":"file.txt","extension":"txt","toString":"new/path/to/file.txt"},"executable":false,"percentUnchanged":98,"type":"MOVE","nodeType":"FILE","srcPath":{"components":["path","to","file.txt"],"parent":"path/to","name":"file.txt","extension":"txt","toString":"path/to/file.txt"},"srcExecutable":false,"links":{"self":[{"href":"http://link/to/restchange"}]}}],"start":0},"links":{"self":[{"href":"http://link/to/changeset"}]},"repository":{"slug":"my-repo","id":1,"name":"My repo","scmId":"git","state":"AVAILABLE","statusMessage":"Available","forkable":true,"project":{"key":"PRJ","id":1,"name":"My Cool Project","description":"The description for my cool project.","public":true,"type":"NORMAL","links":{"self":[{"href":"http://link/to/project"}]}},"public":true,"links":{"clone":[{"href":"ssh://git@&lt;baseURL&gt;/PRJ/my-repo.git","name":"ssh"},{"href":"https://&lt;baseURL&gt;/scm/PRJ/my-repo.git","name":"http"}],"self":[{"href":"http://link/to/repository"}]}}}],"start":0}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[A page of detailed changesets.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource><ns2:resource
+                path="jira/1.0/projects/{projectKey}/repos/{repositorySlug}/pull-requests/{pullRequestId}/issues"><ns2:param
+                name="pullRequestId" style="template" type="xs:long"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"/><ns2:method
+                id="getIssueKeysForPullRequest"
+                        name="GET"><ns2:doc><![CDATA[Retrieves JIRA issue keys that are associated with the commits in the specified pull request. The number of
+ commits checked for issues is limited to a default of 100.]]></ns2:doc><ns2:response><ns2:representation
+                        element="issueKeys" status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>[{"key":"JRA-11","url":"https://jira.atlassian.com/browse/JRA-11"},{"key":"JRA-9","url":"https://jira.atlassian.com/browse/JRA-9"}]</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[A list of JIRA issues keys for the pull request]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resources></ns2:application>

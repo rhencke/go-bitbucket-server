@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:application
+        xmlns:ns2="http://research.sun.com/wadl/2006/10"><ns2:doc
+        jersey:generatedBy="Jersey: 1.8-atlassian-16 03/23/2015 10:20 PM"
+        xmlns:jersey="http://jersey.java.net/"/><ns2:doc
+        title="REST Resources Provided By: Bitbucket Server - Repository Ref Sync"
+            xml:lang="en"><![CDATA[
+        Adds support for ref synchronization between forks and their upstream repositories
+    ]]></ns2:doc><ns2:grammars><ns2:include
+        href="schema.xsd"/></ns2:grammars><ns2:resources
+            base="http://example.com/rest/"><ns2:resource
+                path="sync/1.0/projects/{projectKey}/repos/{repositorySlug}"><ns2:method
+                id="setEnabled"
+                        name="POST"><ns2:doc><![CDATA[Enables or disables synchronization for the specified repository. When synchronization is enabled, branches
+ within the repository are immediately synchronized and the status is updated with the outcome. That initial
+ synchronization is performed before the REST request returns, allowing it to return the updated status.
+ <p>
+ The authenticated user must have <b>REPO_ADMIN</b> permission for the specified repository. Anonymous users
+ cannot manage synchronization, even on public repositories. Additionally, synchronization must be available
+ for the specified repository. Synchronization is only available if:
+ <ul>
+     <li>The repository is a fork, since its origin is used as upstream</li>
+     <li>The owning user still has access to the fork's origin, if the repository is a <i>personal fork</i></li>
+ </ul>]]></ns2:doc><ns2:request><ns2:representation
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"enabled":true}</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                        element="status" status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"available":true,"enabled":true,"lastSync":1331038800000,"aheadRefs":[],"divergedRefs":[{"id":"refs/heads/master","displayId":"master","type":"BRANCH","state":"DIVERGED","tag":false}],"orphanedRefs":[]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The updated synchronization status for the repository, after enabling
+                                  synchronization. 204 NO CONTENT is returned instead after disabling
+                                  synchronization.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="400"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":"field_a","message":"A detailed validation error message for field_a.","exceptionName":null},{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The JSON payload for the request did not define the "enabled" property.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to manage
+                                  synchronization in the specified repository.]]></ns2:doc></ns2:representation><ns2:representation
+                        status="204"
+                        mediaType="application/json"><ns2:doc><![CDATA[Synchronization has successfully been disabled. 200 OK, with updated status
+                                  information, is returned instead after enabling synchronization.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="404"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository does not exist.]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:method
+                id="getStatus"
+                        name="GET"><ns2:doc><![CDATA[Retrieves the synchronization status for the specified repository. In addition to listing refs which cannot be
+ synchronized, if any, the status also provides the timestamp for the most recent synchronization and indicates
+ whether synchronization is available and enabled. If "?at" is specified in the URL, the synchronization status
+ for the specified ref is returned, rather than the complete repository status.
+ <p>
+ The authenticated user must have <b>REPO_READ</b> permission for the repository, or it must be public if the
+ request is anonymous. Additionally, after synchronization is enabled for a repository, meaning synchronization
+ was available at that time, permission changes and other actions can cause it to become unavailable. Even when
+ synchronization is enabled, if it is no longer available for the repository it will not be performed.]]></ns2:doc><ns2:request><ns2:param
+                        name="at" style="query" type="xs:string"
+                        xmlns:xs="http://www.w3.org/2001/XMLSchema"><ns2:doc><![CDATA[retrieves the synchronization status for the specified ref within the repository, rather than for
+              the entire repository]]></ns2:doc></ns2:param></ns2:request><ns2:response><ns2:representation
+                        element="status" status="200"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"available":true,"enabled":true,"lastSync":1331038800000,"aheadRefs":[],"divergedRefs":[{"id":"refs/heads/master","displayId":"master","type":"BRANCH","state":"DIVERGED","tag":false}],"orphanedRefs":[]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[Synchronization status for the specified repository, or specific ref within
+                                  that repository.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="401"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                        xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to view the
+                                  repository, or the repository is not public if the request is anonymous.]]></ns2:doc></ns2:representation><ns2:representation
+                        element="errors" status="404"
+                                mediaType="application/json"><ns2:doc><ns3:p
+                xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository does not exist.]]></ns2:doc></ns2:representation></ns2:response></ns2:method><ns2:resource
+                    path="/synchronize"><ns2:method id="synchronize"
+                            name="POST"><ns2:doc><![CDATA[Allows developers to apply a manual operation to bring a ref back in sync with upstream when it becomes out of
+ sync due to conflicting changes. The following actions are supported:
+ <ul>
+     <li><tt>MERGE</tt>: Merges in commits from the upstream ref. After applying this action, the synchronized
+     ref will be <tt>AHEAD</tt> (as it still includes commits that do not exist upstream.
+     <ul>
+         <li>This action is only supported for <tt>DIVERGED</tt> refs</li>
+         <li>If a "commitMessage" is provided in the context, it will be used on the merge commit. Otherwise a
+         default message is used.</li>
+     </ul>
+     </li>
+     <li><tt>DISCARD</tt>: <i>Throws away</i> local changes in favour of those made upstream. This is a
+     <i>destructive</i> operation where commits in the local repository are lost.
+     <ul>
+         <li>No context entries are supported for this action</li>
+         <li>If the upstream ref has been deleted, the local ref is deleted as well</li>
+         <li>Otherwise, the local ref is updated to reference the same commit as upstream, even if the update
+         is not fast-forward (similar to a forced push)</li>
+     </ul>
+     </li>
+ </ul>
+ <p>
+ The authenticated user must have <b>REPO_WRITE</b> permission for the specified repository. Anonymous users
+ cannot synchronize refs, even on public repositories. Additionally, synchronization must be <i>enabled</i> and
+ <i>available</i> for the specified repository.]]></ns2:doc><ns2:request><ns2:representation
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"refId":"refs/heads/master","action":"MERGE","context":{"commitMessage":"Merging in latest from upstream."}}</ns3:code></ns3:pre></ns3:p></ns2:doc></ns2:representation></ns2:request><ns2:response><ns2:representation
+                            element="status" status="200"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"id":"refs/heads/master","displayId":"master","type":"BRANCH","state":"AHEAD","tag":false}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The requested action was successfully performed, and has updated the ref's
+                                  state, but the ref if is still not in sync with upstream. For example, after
+                                  applying the <tt>MERGE</tt> action, the ref will still be <tt>AHEAD</tt> of
+                                  upstream. If the action brings the ref in sync with upstream, 204 NO CONTENT
+                                  is returned instead.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="400"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":"field_a","message":"A detailed validation error message for field_a.","exceptionName":null},{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The requested synchronization action was not understood.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="401"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The currently authenticated user has insufficient permissions to update refs
+                                  within the specified repository.]]></ns2:doc></ns2:representation><ns2:representation
+                            status="204"
+                            mediaType="application/json"><ns2:doc><![CDATA[The requested action was successfully performed and the ref is now in sync
+                                  with upstream. If the action updates the ref but does not bring it in sync
+                                  with upstream, 200 OK is returned instead.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="501"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The requested synchronization action was understood by the server, but the
+                                  mechanism to apply it has not been implemented.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="404"
+                                    mediaType="application/json"><ns2:doc><ns3:p
+                            xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[The specified repository does not exist.]]></ns2:doc></ns2:representation><ns2:representation
+                            element="errors" status="409"
+                                    mediaType="application/json"><ns2:doc><ns3:p xmlns:ns3="http://www.w3.org/1999/xhtml"><ns3:h6>Example</ns3:h6><ns3:pre><ns3:code>{"errors":[{"context":null,"message":"A detailed error message.","exceptionName":null}]}</ns3:code></ns3:pre></ns3:p></ns2:doc><ns2:doc><![CDATA[Synchronization is not available or enabled for the specified repository, or
+                                  the ref is already in sync with upstream.]]></ns2:doc></ns2:representation></ns2:response></ns2:method></ns2:resource></ns2:resource></ns2:resources></ns2:application>
